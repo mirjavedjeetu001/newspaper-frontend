@@ -1,0 +1,82 @@
+.ad-banner {
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.ad-item {
+  max-width: 100%;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.ad-item a {
+  display: block;
+  transition: transform 0.2s;
+}
+
+.ad-item a:hover {
+  transform: scale(1.02);
+}
+
+.ad-item img {
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.ad-header .ad-item {
+  max-height: 120px;
+}
+
+.ad-header .ad-item img {
+  max-height: 120px;
+  width: auto;
+  max-width: 100%;
+}
+
+.ad-sidebar {
+  flex-direction: column;
+}
+
+.ad-sidebar .ad-item {
+  width: 100%;
+  max-height: 300px;
+}
+
+.ad-sidebar .ad-item img {
+  max-height: 300px;
+  width: 100%;
+}
+
+.ad-footer .ad-item {
+  max-height: 100px;
+}
+
+.ad-footer .ad-item img {
+  max-height: 100px;
+  width: auto;
+  max-width: 100%;
+}
+
+.ad-between-news {
+  margin: 30px 0;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 20%);
+}
+
+.ad-between-news .ad-item {
+  max-height: 150px;
+}
+
+.ad-between-news .ad-item img {
+  max-height: 150px;
+}
