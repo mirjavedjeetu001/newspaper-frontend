@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import './App.css';
 import './i18n';
 import HomePage from './pages/HomePage';
@@ -26,6 +28,50 @@ const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
 };
 
 function App() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Fetch settings early to apply theme color
+    const initializeApp = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/settings');
+        const settings = response.data;
+        
+        // Apply theme color immediately
+        if (settings.theme_color) {
+          document.documentElement.style.setProperty('--theme-color', settings.theme_color);
+          document.documentElement.style.setProperty('--theme-color-dark', settings.theme_color);
+          localStorage.setItem('theme_color', settings.theme_color);
+        }
+        
+        // Update document title
+        const currentLang = localStorage.getItem('i18nextLng') || 'bn';
+        const siteName = currentLang === 'bn' ? settings.site_name_bn : settings.site_name_en;
+        if (siteName) {
+          document.title = siteName;
+        }
+      } catch (error) {
+        console.error('Error loading settings:', error);
+      }
+      
+      // Minimum loading time for smooth UX
+      setTimeout(() => {
+        setLoading(false);
+      }, 600);
+    };
+
+    initializeApp();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="preloader" style={{ backgroundColor: 'var(--theme-color, #c8102e)' }}>
+        <div className="preloader-spinner"></div>
+        <p className="preloader-text">লোড হচ্ছে...</p>
+      </div>
+    );
+  }
+
   return (
     <Router>
       <Routes>

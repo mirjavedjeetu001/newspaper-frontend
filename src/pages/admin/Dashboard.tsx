@@ -3,11 +3,13 @@ import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import AdminSidebar from '../../components/admin/AdminSidebar';
 import { newsAPI, categoryAPI, photoAPI, videoAPI, adAPI } from '../../services/api';
+import { useAdminTitle } from '../../hooks/useAdminTitle';
 import '../../styles/Admin.css';
 
 const AdminDashboard = () => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+  useAdminTitle(t('dashboard'));
   const [stats, setStats] = useState({
     news: 0,
     categories: 0,

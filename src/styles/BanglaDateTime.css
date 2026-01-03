@@ -1,0 +1,53 @@
+.bangla-datetime-card {
+  background: linear-gradient(135deg, var(--theme-color, #c8102e) 0%, #8b0a1f 100%);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  margin-bottom: 20px;
+  color: white;
+}
+
+.datetime-content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.date-section,
+.time-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 12px;
+  border-radius: 6px;
+  backdrop-filter: blur(10px);
+}
+
+.icon {
+  font-size: 24px;
+}
+
+.date-text,
+.time-text {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.time-text {
+  font-family: 'Courier New', monospace;
+  font-size: 18px;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 768px) {
+  .date-text,
+  .time-text {
+    font-size: 14px;
+  }
+  
+  .time-text {
+    font-size: 16px;
+  }
+}

@@ -11,7 +11,7 @@
   font-weight: 700;
   margin-bottom: 15px;
   padding-bottom: 10px;
-  border-bottom: 2px solid #c8102e;
+  border-bottom: 2px solid var(--theme-color, #c8102e);
   color: #222;
 }
 
@@ -38,7 +38,7 @@
 .trending-number {
   width: 30px;
   height: 30px;
-  background-color: #c8102e;
+  background-color: var(--theme-color, #c8102e);
   color: white;
   display: flex;
   align-items: center;

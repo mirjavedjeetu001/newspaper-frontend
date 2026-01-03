@@ -5,6 +5,16 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>প্রতিদিনের সংবাদ | Daily News</title>
+    <script>
+      // Apply stored theme color immediately to prevent flash
+      (function() {
+        const themeColor = localStorage.getItem('theme_color');
+        if (themeColor) {
+          document.documentElement.style.setProperty('--theme-color', themeColor);
+          document.documentElement.style.setProperty('--theme-color-dark', themeColor);
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

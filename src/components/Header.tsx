@@ -30,18 +30,30 @@ const Header = ({ categories }: HeaderProps) => {
   const { t, i18n } = useTranslation();
   const [settings, setSettings] = useState<Settings | null>(null);
   const [menus, setMenus] = useState<Menu[]>([]);
+  const [isSticky, setIsSticky] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const fetchSettings = async () => {
       try {
         const response = await settingsAPI.get();
         setSettings(response.data);
+        // Apply theme color as CSS variable and store in localStorage
+        if (response.data.theme_color) {
+          document.documentElement.style.setProperty('--theme-color', response.data.theme_color);
+          localStorage.setItem('theme_color', response.data.theme_color);
+        }
+        // Update document title
+        const siteName = i18n.language === 'bn' ? response.data.site_name_bn : response.data.site_name_en;
+        if (siteName) {
+          document.title = siteName;
+        }
       } catch (error) {
         console.error('Error fetching settings:', error);
       }
     };
     fetchSettings();
-  }, []);
+  }, [i18n.language]);
 
   useEffect(() => {
     const fetchMenus = async () => {
@@ -53,6 +65,19 @@ const Header = ({ categories }: HeaderProps) => {
       }
     };
     fetchMenus();
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 200) {
+        setIsSticky(true);
+      } else {
+        setIsSticky(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const toggleLanguage = () => {
@@ -91,7 +116,7 @@ const Header = ({ categories }: HeaderProps) => {
         <div className="container">
           <Link to="/" className="logo">
             {settings?.logo_url ? (
-              <img src={settings.logo_url} alt={siteName} style={{ maxHeight: '60px' }} />
+              <img src={settings.logo_url} alt={siteName} className="logo-image" />
             ) : (
               <h1>{siteName}</h1>
             )}
@@ -99,9 +124,22 @@ const Header = ({ categories }: HeaderProps) => {
         </div>
       </div>
 
-      <nav className="header-nav">
+      <nav className={`header-nav ${isSticky ? 'sticky' : ''}`}>
         <div className="container">
-          <ul className="nav-menu">
+          {isMobileMenuOpen && (
+            <div 
+              className="menu-overlay" 
+              onClick={() => setIsMobileMenuOpen(false)}
+            ></div>
+          )}
+          <button 
+            className="mobile-menu-toggle" 
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            <span className={`hamburger ${isMobileMenuOpen ? 'active' : ''}`}></span>
+          </button>
+          <ul className={`nav-menu ${isMobileMenuOpen ? 'mobile-open' : ''}`} onClick={() => setIsMobileMenuOpen(false)}>
             {menus.length > 0 ? (
               menus.map((menu) => (
                 <li key={menu.id}>

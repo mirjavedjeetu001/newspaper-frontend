@@ -16,6 +16,7 @@ export const newsAPI = {
   getFeatured: () => api.get('/news/featured'),
   getTrending: () => api.get('/news/trending'),
   getByCategory: (categoryId: number) => api.get(`/news/category/${categoryId}`),
+  getBySlug: (slug: string) => api.get(`/news/slug/${slug}`),
   getOne: (id: number) => api.get(`/news/${id}`),
   create: (data: any) => api.post('/news', data),
   update: (id: number, data: any) => api.put(`/news/${id}`, data),

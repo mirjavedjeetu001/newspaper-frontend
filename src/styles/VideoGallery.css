@@ -62,5 +62,21 @@
 @media (max-width: 768px) {
   .video-grid {
     grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .video-item {
+    border-radius: 4px;
+  }
+
+  .play-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
+
+  .video-title {
+    padding: 12px;
+    font-size: 14px;
   }
 }

@@ -15,6 +15,7 @@ interface News {
   content_bn: string;
   image: string;
   video_url: string;
+  author_name: string;
   category: any;
   views: number;
   created_at: string;
@@ -37,7 +38,8 @@ const NewsDetailPage = () => {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const response = await newsAPI.getOne(Number(id));
+        // Try to fetch by slug first (id param is actually a slug)
+        const response = await newsAPI.getBySlug(id!);
         setNews(response.data);
         setLoading(false);
       } catch (error) {
@@ -46,7 +48,9 @@ const NewsDetailPage = () => {
       }
     };
 
-    fetchNews();
+    if (id) {
+      fetchNews();
+    }
   }, [id]);
 
   if (loading) {

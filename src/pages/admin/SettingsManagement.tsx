@@ -21,6 +21,10 @@ interface Settings {
   twitter_url: string;
   youtube_url: string;
   instagram_url: string;
+  theme_color: string;
+  footer_about_en: string;
+  footer_about_bn: string;
+  footer_links: string;
 }
 
 const SettingsManagement: React.FC = () => {
@@ -41,6 +45,10 @@ const SettingsManagement: React.FC = () => {
     twitter_url: '',
     youtube_url: '',
     instagram_url: '',
+    theme_color: '#c8102e',
+    footer_about_en: '',
+    footer_about_bn: '',
+    footer_links: '',
   });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -234,6 +242,34 @@ const SettingsManagement: React.FC = () => {
             </div>
 
             <div className="form-section">
+              <h3>Theme Settings</h3>
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Theme Color</label>
+                  <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                    <input
+                      type="color"
+                      name="theme_color"
+                      value={settings.theme_color}
+                      onChange={handleChange}
+                      style={{ width: '60px', height: '40px', cursor: 'pointer' }}
+                    />
+                    <input
+                      type="text"
+                      name="theme_color"
+                      value={settings.theme_color}
+                      onChange={handleChange}
+                      placeholder="#c8102e"
+                      pattern="^#[0-9A-Fa-f]{6}$"
+                      style={{ flex: 1 }}
+                    />
+                  </div>
+                  <small style={{ color: '#666', fontSize: '12px' }}>Choose the primary color for your website theme</small>
+                </div>
+              </div>
+            </div>
+
+            <div className="form-section">
               <h3>{t('socialMedia')}</h3>
               <div className="form-row">
                 <div className="form-group">
@@ -279,6 +315,45 @@ const SettingsManagement: React.FC = () => {
                     placeholder="https://instagram.com/yourpage"
                   />
                 </div>
+              </div>
+            </div>
+
+            <div className="form-section">
+              <h3>Footer Settings</h3>
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Footer About (English)</label>
+                  <textarea
+                    name="footer_about_en"
+                    value={settings.footer_about_en}
+                    onChange={handleChange}
+                    rows={4}
+                    placeholder="About text for footer in English"
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Footer About (Bangla)</label>
+                  <textarea
+                    name="footer_about_bn"
+                    value={settings.footer_about_bn}
+                    onChange={handleChange}
+                    rows={4}
+                    placeholder="Footer সম্পর্কে বাংলায়"
+                  />
+                </div>
+              </div>
+              <div className="form-group">
+                <label>Footer Links (JSON format)</label>
+                <small style={{ display: 'block', marginBottom: '8px', color: '#666' }}>
+                  Example: {`{"quickLinks": [{"label_bn": "হোম", "label_en": "Home", "url": "/"}, {"label_bn": "যোগাযোগ", "label_en": "Contact", "url": "/contact"}]}`}
+                </small>
+                <textarea
+                  name="footer_links"
+                  value={settings.footer_links}
+                  onChange={handleChange}
+                  rows={6}
+                  placeholder='{"quickLinks": [{"label_bn": "হোম", "label_en": "Home", "url": "/"}]}'
+                />
               </div>
             </div>
 
